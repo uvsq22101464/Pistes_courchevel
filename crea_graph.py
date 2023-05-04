@@ -6,11 +6,12 @@ root.title("Courchevel")
 
 hauteur = root.winfo_screenheight()
 largeur = root.winfo_screenwidth()
-print(hauteur, largeur)
 
-image = Image.open('xlarge (0_0).jpg')
-image.thumbnail((1000, 1000), Image.BICUBIC)
+image = Image.open('xlarge.jpg')
+image.thumbnail((largeur, hauteur), Image.BICUBIC)
 bg = ImageTk.PhotoImage(image)
+adjust_x =  image.height/798
+adjust_y = image.width/1000
 
 frame = Frame(root, width=600, height=400)
 canvas = Canvas(frame, width=600, height=400, scrollregion=(0, 0, largeur, hauteur))
@@ -22,6 +23,7 @@ canvas.config(xscrollcommand=x_bar.set, yscrollcommand=y_bar.set)
 canvas.pack(expand=True, fill='both')
 frame.pack(side="left", fill='both', expand=True)
 img = canvas.create_image(0, 0, image=bg, anchor='nw')
+
 
 x1, y1 = None, None
 x2, y2 = None, None
@@ -65,8 +67,8 @@ def mode_nodes():
 def load_data():
     with open("nodes.txt", "r") as fic:
         for lines in fic.readlines():
-            canvas.create_oval(int(lines.split("\t")[1]) - 5, int(lines.split("\t")[2]) - 5, int(lines.split("\t")[1]) + 5, int(lines.split("\t")[2]) + 5, fill="black")
-            #canvas.create_oval(int(lines.split("\t")[1])/2 - 5, int(lines.split("\t")[2])/2 - 5, int(lines.split("\t")[1])/2 + 5, int(lines.split("\t")[2])/2 + 5, fill="black") #pour le vrai truc
+            canvas.create_oval(float(lines.split("\t")[1])*adjust_x - 5, float(lines.split("\t")[2])*adjust_y - 5, float(lines.split("\t")[1])*adjust_x + 5, float(lines.split("\t")[2])*adjust_y + 5, fill="black")
+            
 
 label = Label(root, text='Courchevel', height=3, font=('Calibri', 23))
 label.pack()
@@ -83,6 +85,7 @@ button3.pack()
 button4 = Button(root, text="CHARGER SAVE", command=load_data)
 button4.pack()
 
+canvas.bind('<Button-2>', lambda ev : print(ev.x, ev.y))
 
 root.mainloop()
 print(dico)
