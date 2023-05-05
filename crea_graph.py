@@ -37,7 +37,7 @@ def motion(event):
     x2, y2 = event.x, event.y
     if x1 is not None:
         canvas.create_line(x1, y1, x2, y2)
-        taille += (((x2-x1)*2+(y2-y1)*2)**2)**0.5
+        taille += (((x2-x1)**2)**0.5)+(((y2-y1)**2)**0.5)
         x1, y1 = x2, y2
     else:
         x1, y1 = x2, y2
@@ -47,9 +47,10 @@ def zero(event=None):
     x1, y1 = None, None
     x2, y2 = None, None
     dico[text] = taille
+    taille = 0
     canvas.unbind('<Button-3>')
     root.unbind('<Escape>')
-    return taille
+    return dico[text]
 
 def recup_text(event):
     global text
