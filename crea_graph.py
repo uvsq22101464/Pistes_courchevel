@@ -61,7 +61,7 @@ def recup_text(event):
 def draw_nodes(event):
     id = canvas.create_oval(event.x-5, event.y-5, event.x+5, event.y+5, fill='black')
     with open("nodes.txt", "a") as fic:
-        fic.write(str(id) + "\t" + str(event.x) + "\t" + str(event.y) + "\n")
+        fic.write(str(id) + "\t" + str(event.x) + "\t" + str(event.y) + "\t" + "[]" + "\n")
 
 def mode_nodes():
     canvas.bind('<Button-1>', draw_nodes)
@@ -70,16 +70,18 @@ def load_data():
     with open("nodes.txt", "r") as fic:
         for lines in fic.readlines():
             canvas.create_oval(float(lines.split("\t")[1])*adjust_x - 5, float(lines.split("\t")[2])*adjust_y - 5, float(lines.split("\t")[1])*adjust_x + 5, float(lines.split("\t")[2])*adjust_y + 5, fill="black")
+    with open("nodes.txt", "r") as fic:
+        for lines in fic.readlines():
+            canvas.create_text(float(lines.split("\t")[1])*adjust_x - 10, float(lines.split("\t")[2])*adjust_y - 10, text=str(lines.split("\t")[0]), fill="red")
 
 def find(event):
     if canvas.find_closest(event.x, event.y)[0] != 1:
         return canvas.find_closest(event.x, event.y)[0]
     else:
-        raise ValueError("Il faut cliquer sur les cercles sinon c'est faux")
+        raise ValueError("Il faut cliquer sur les cercles sinon ça ne marche pas")
     
 def save_arc(event):
     global end_node, start_node, color, taille
-    print("go", start_node, end_node)
     with open("nodes.txt", "r+") as fic:
         lines = fic.readlines()
         fic.seek(0)
@@ -99,7 +101,6 @@ def draw_arc():
     global text, color
     text = entry.get()
     color = entry2.get()
-    #entry.delete(0, END)
     canvas.focus_force()
     canvas.bind('<Button-1>', save_arc)
     canvas.bind('a', recup_start_node)
@@ -110,13 +111,11 @@ def draw_arc():
 def recup_start_node(event):
     global start_node
     start_node = find(event)
-    print(start_node)
     return start_node
 
 def recup_end_node(event):
     global end_node
     end_node = find(event)
-    print(end_node)
     return end_node
 
 label = Label(root, text='Courchevel', height=3, font=('Calibri', 23))
@@ -136,7 +135,5 @@ button3.pack()
 button4 = Button(root, text="CHARGER SAVE", command=load_data)
 button4.pack()
 
-#canvas.bind('<Button-2>', find)
 
 root.mainloop()
-print(dico)
