@@ -17,7 +17,7 @@
 18	45.0	322.5	[(55, 'chapelets_0', 'red', 306.0)]
 19	125.0	372.5	[(20, 'rochers_2D', 'red', 14.0), (21, 'rochers_2G', 'red', 43.0)]
 20	122.5	386.0	[(55, 'rochers_3', 'red', 137.0)]
-21	145.5	386.0	[(60, 'ariondaz_3', 'blue', 108.0), (20, 'rochers_3', 'red', 29.0), (55, 'bel air_0', 'red', 168.0), (285, 'praline_0', 'green', 48.0)]
+21	145.5	386.0	[(60, 'ariondaz_3', 'blue', 108.0), (20, 'rochers_3', 'red', 29.0), (55, 'bel air_0', 'red', 168.0), (22, 'praline_0', 'green', 48.0)]
 22	175.5	381.5	[(14, 'COMBE', 'teleski', 127.0), (23, 'praline_1', 'green', 17.0)]
 23	187.5	383.5	[(68, 'grandes bosses_3', 'blue', 85.0), (24, 'praline_2', 'green', 26.0)]
 24	206.5	384.5	[(25, 'praline_3G', 'green', 54.0), (68, 'praline_3D', 'green', 65.0)]
