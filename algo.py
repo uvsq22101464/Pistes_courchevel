@@ -7,7 +7,7 @@ dico_niveau = {"Débutant" : {"green" : 1.2, "blue" : 1.8, "red" : 2.5, "black" 
             "Aguerri" : {"green" : 1.1, "blue" : 1.4, "red" : 1.8, "black" : 2.5},
             "Expert" : {"green" : 1, "blue" : 0.9, "red" : 0.8, "black" : 0.6}}
 
-dico_remonte = {"teleski" : 4, "telesiege" : 3, "telecabine" : 2, "telepherique" : 1} 
+dico_remonte = {"teleski" : 2, "telesiege" : 1.7, "telecabine" : 1.4, "telepherique" : 1.1} 
 
 def dijktra(sommet, arriver,niveau):
     tableau = {}
