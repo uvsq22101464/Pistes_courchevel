@@ -30,10 +30,12 @@ def reset():
     if end != None:
         canvas.itemconfig(end, fill="black")
         end = None
+    return start, end
+
+def reset_draw():
     for item in canvas.find_all():
         if item > 141:
             canvas.delete(item)
-    return start, end
     
 
 def get_coords(liste):
@@ -55,6 +57,7 @@ def draw(liste_coord):
 def starting_point(event):
     global start
     reset()
+    reset_draw()
     start = find(event)
     canvas.itemconfig(start, fill="blue")
     canvas.bind('<Button-1>', ending_point)
@@ -73,18 +76,24 @@ def debutant():
     global niveau
     niveau = "Débutant"
     label_niveau_select.config(text=niveau)
+    reset_draw()
+    draw(get_coords(dijktra(start, end, niveau)[0]))
     return niveau
 
 def aguerri():
     global niveau
     niveau = "Aguerri"
     label_niveau_select.config(text=niveau)
+    reset_draw()
+    draw(get_coords(dijktra(start, end, niveau)[0]))
     return niveau
 
 def expert():
     global niveau
     niveau = "Expert"
     label_niveau_select.config(text=niveau)
+    reset_draw()
+    draw(get_coords(dijktra(start, end, niveau)[0]))
     return niveau
 
 
