@@ -64,7 +64,7 @@ def ending_point(event):
     global end, niveau
     end = find(event)
     canvas.itemconfig(end, fill="red")
-    draw(get_coords(dijktra(start, end, niveau)))
+    draw(get_coords(dijktra(start, end, niveau)[0]))
     #### faire la liste des chemins
     canvas.bind('<Button-1>', starting_point)
     return end
