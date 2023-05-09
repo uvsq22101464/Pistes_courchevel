@@ -57,6 +57,7 @@ def starting_point(event):
     reset()
     start = find(event)
     canvas.itemconfig(start, fill="blue")
+    canvas.bind('<Button-1>', ending_point)
     return start
 
 def ending_point(event):
@@ -65,6 +66,7 @@ def ending_point(event):
     canvas.itemconfig(end, fill="red")
     draw(get_coords(dijktra(start, end, niveau)))
     #### faire la liste des chemins
+    canvas.bind('<Button-1>', starting_point)
     return end
 
 def debutant():
@@ -109,6 +111,5 @@ with open("nodes.txt", "r") as fic:
 
 
 canvas.bind('<Button-1>', starting_point)
-canvas.bind('<Button-3>', ending_point)
 
 root.mainloop()
