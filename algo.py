@@ -24,7 +24,6 @@ def dijktra_main(tableau, T):
                     mini = distance
                     sommet = noeud
         for noeud, nom, type, distance in dico[sommet]:
-            print(noeud, sommet)
             if tableau[sommet][1]+distance < tableau[noeud][1]:
                 tableau[noeud] = (sommet, tableau[sommet][1]+distance)
         T.append(sommet)
@@ -33,11 +32,7 @@ def dijktra_main(tableau, T):
 def chemin_plus_court(depart, arriver, tableau):
     chemin = []
     noeud = arriver
-    print(tableau)
     while noeud != None:
-        print(noeud)
         chemin.insert(0, noeud)
         noeud = tableau[noeud][0]
     return chemin
-
-print(dijktra(42, 44))
