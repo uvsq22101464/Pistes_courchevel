@@ -54,6 +54,17 @@ def draw(liste_coord):
         canvas.create_line(liste_coord[0][0], liste_coord[0][1], liste_coord[1][0], liste_coord[1][1], fill="lawngreen", width=3)
         del liste_coord[0]
 
+def chemin():
+    pistes = dijktra(start, end, niveau)[1]
+    print(pistes)
+    pistes_str = "@".join(pistes)
+    pistes_str_liste = list(pistes_str)
+    for i in range(len(pistes_str_liste)):
+        if pistes_str_liste[i] == '@':
+            pistes_str_liste[i] = "->"
+    afficher_pistes = "".join(pistes_str_liste)
+    label_pistes.configure(text = afficher_pistes)
+
 def starting_point(event):
     global start
     reset()
@@ -69,15 +80,7 @@ def ending_point(event):
     canvas.itemconfig(end, fill="red")
     draw(get_coords(dijktra(start, end, niveau)[0]))
     #### faire la liste des chemins
-    pistes = dijktra(start, end, niveau)[1]
-    print(pistes)
-    pistes_str = "@".join(pistes)
-    pistes_str_liste = list(pistes_str)
-    for i in range(len(pistes_str_liste)):
-        if pistes_str_liste[i] == '@':
-            pistes_str_liste[i] = "->"
-    afficher_pistes = "".join(pistes_str_liste)
-    label_pistes.configure(text = afficher_pistes)
+    chemin()
     canvas.bind('<Button-1>', starting_point)
     return end
 
@@ -87,6 +90,7 @@ def debutant():
     label_niveau_select.config(text=niveau)
     reset_draw()
     draw(get_coords(dijktra(start, end, niveau)[0]))
+    chemin()
     return niveau
 
 def aguerri():
@@ -95,6 +99,7 @@ def aguerri():
     label_niveau_select.config(text=niveau)
     reset_draw()
     draw(get_coords(dijktra(start, end, niveau)[0]))
+    chemin()
     return niveau
 
 def expert():
@@ -103,6 +108,7 @@ def expert():
     label_niveau_select.config(text=niveau)
     reset_draw()
     draw(get_coords(dijktra(start, end, niveau)[0]))
+    chemin()
     return niveau
 
 
@@ -113,8 +119,6 @@ label_niveau = Label(root, text="Niveau :", height=3, font=("calibri", 23))
 label_niveau.pack(fill="x")
 label_niveau_select = Label(root, text="Débutant", height=3, font=("calibri", 23))
 label_niveau_select.pack(fill="x")
-label_pistes = Label(root, text = "chemin à suivre",wraplength=500, height=3, font=("calibri", 10))
-label_pistes.pack(fill="x")
 frame_niveau = Frame(root)
 frame_niveau.pack(fill="x")
 bouton_debutant = Button(root, text="Débutant", command=debutant)
@@ -123,6 +127,8 @@ bouton_expert = Button(root, text="Expert", command=expert)
 bouton_debutant.pack(fill="x", side="left", in_=frame_niveau)
 bouton_aguerri.pack(before=bouton_debutant, fill="x", side="left", in_=frame_niveau)
 bouton_expert.pack(before=bouton_aguerri, fill="x", side="left", in_=frame_niveau)
+label_pistes = Label(root, text = "chemin à suivre",wraplength=400, height=3, font=("calibri", 10))
+label_pistes.pack(fill="x")
 
 
 with open("nodes.txt", "r") as fic:
