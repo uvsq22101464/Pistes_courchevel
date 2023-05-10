@@ -59,30 +59,32 @@ def chemin():
     pistes = dijktra(start, end, niveau)[1]
     temps = dijktra(start, end, niveau)[2]
     temps = [temps // 7338.5, temps % 7338.5 // 60]
+    print(pistes)
     while temps[1] > 59 :
         temps[0] += 1
         temps[1] -= 60
     txt, last_piste = "", None
     if len(pistes) == 0:
         txt = "il n'y a pas de chemin possible"
-    for piste in pistes:
-        if piste[0][-1] == "D" and piste[0][-3] == "_":
-            txt += f"prendre le chemin de droite de {dico_type_piste[piste[1]]} {piste[0][:-3]} \n"
-        elif piste[0][-1] == "G" and piste[0][-3] == "_":
-            txt += f"prendre le chemin de gauche de {dico_type_piste[piste[1]]} {piste[0][:-3]} \n"
-        else:
-            if last_piste == None:
-                txt += f"prendre {dico_type_piste[piste[1]]} {piste[0][:-2]} \n" if piste[0][-2] == "_" else f"prendre {dico_type_piste[piste[1]]} {piste[0]} \n"
-            elif last_piste != None and piste[0][:-2] in last_piste[:-2]:
-                last_piste = piste[0]
-                continue
-            elif last_piste != None and piste[0][:-2] not in last_piste[:-2]:
-                txt += f"prendre {dico_type_piste[piste[1]]} {piste[0][:-2]} \n" if piste[0][-2] == "_" else f"prendre {dico_type_piste[piste[1]]} {piste[0]} \n"
+    else:
+        for piste in pistes:
+            if piste[0][-1] == "D" and piste[0][-3] == "_":
+                txt += f"prendre le chemin de droite de {dico_type_piste[piste[1]]} {piste[0][:-3]} \n"
+            elif piste[0][-1] == "G" and piste[0][-3] == "_":
+                txt += f"prendre le chemin de gauche de {dico_type_piste[piste[1]]} {piste[0][:-3]} \n"
             else:
+                if last_piste == None:
+                    txt += f"prendre {dico_type_piste[piste[1]]} {piste[0][:-2]} \n" if piste[0][-2] == "_" else f"prendre {dico_type_piste[piste[1]]} {piste[0]} \n"
+                elif last_piste != None and piste[0][:-2] in last_piste[:-2]:
+                    last_piste = piste[0]
+                    continue
+                elif last_piste != None and piste[0][:-2] not in last_piste[:-2]:
+                    txt += f"prendre {dico_type_piste[piste[1]]} {piste[0][:-2]} \n" if piste[0][-2] == "_" else f"prendre {dico_type_piste[piste[1]]} {piste[0]} \n"
+                else:
+                    last_piste = piste[0]
+                    continue
                 last_piste = piste[0]
-                continue
-            last_piste = piste[0]
-    txt += f"cela vous prendra environ {int(temps[0])} heure et {int(temps[1])} minutes" if int(temps[0]) > 0 else f"cela vous prendra environ {int(temps[1])} minutes"
+        txt += f"cela vous prendra environ {int(temps[0])} heure et {int(temps[1])} minutes" if int(temps[0]) > 0 else f"cela vous prendra environ {int(temps[1])} minutes"
     label_pistes.config(text=txt)
 
 def starting_point(event):
