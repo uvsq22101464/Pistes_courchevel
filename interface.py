@@ -58,7 +58,10 @@ def draw(liste_coord):
 def chemin():
     pistes = dijktra(start, end, niveau)[1]
     temps = dijktra(start, end, niveau)[2]
-    temps = (temps // 7338.5, temps % 7338.5 // 60)
+    temps = [temps // 7338.5, temps % 7338.5 // 60]
+    while temps[1] > 59 :
+        temps[0] += 1
+        temps[1] -= 60
     txt, last_piste = "", None
     if len(pistes) == 0:
         txt = "il n'y a pas de chemin possible"
