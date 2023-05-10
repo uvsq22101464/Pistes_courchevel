@@ -15,6 +15,8 @@ adjust_x =  image.height/798
 adjust_y = image.width/1000
 start, end = None, None
 niveau = "Débutant"
+dico_type_piste = {"red" : "la piste rouge", "blue" : "la piste bleue", "green" : "la piste verte", "black" : "la piste noire",
+                   "telepherique" : "le téléphérique", "telecabine" : "la télécabine", "telesiege" : "le télésiège", "teleski" : "le téléski"}
 
 def find(event):
     if canvas.find_closest(event.x, event.y)[0] != 1:
@@ -37,7 +39,6 @@ def reset_draw():
         if item > 141:
             canvas.delete(item)
     
-
 def get_coords(liste):
     liste_coord = []
     for noeuds in liste:
@@ -56,14 +57,27 @@ def draw(liste_coord):
 
 def chemin():
     pistes = dijktra(start, end, niveau)[1]
+    txt, last_piste = "", None
     print(pistes)
-    pistes_str = "@".join(pistes)
-    pistes_str_liste = list(pistes_str)
-    for i in range(len(pistes_str_liste)):
-        if pistes_str_liste[i] == '@':
-            pistes_str_liste[i] = "->"
-    afficher_pistes = "".join(pistes_str_liste)
-    label_pistes.configure(text = afficher_pistes)
+    for piste in pistes:
+        if piste[0][-1] == "D" and piste[0][-3] == "_":
+            txt += f"prendre le chemin de droite de {dico_type_piste[piste[1]]} {piste[0][:-3]} \n"
+        elif piste[0][-1] == "G" and piste[0][-3] == "_":
+            txt += f"prendre le chemin de gauche de {dico_type_piste[piste[1]]} {piste[0][:-3]} \n"
+        else:
+            if last_piste == None:
+                txt += f"prendre {dico_type_piste[piste[1]]} {piste[0][:-2]} \n" if piste[0][-2] == "_" else f"prendre {dico_type_piste[piste[1]]} {piste[0]} \n"
+            elif last_piste != None and piste[0][:-2] in last_piste[:-2]:
+                last_piste = piste[0]
+                continue
+            elif last_piste != None and piste[0][:-2] not in last_piste[:-2]:
+                txt += f"prendre {dico_type_piste[piste[1]]} {piste[0][:-2]} \n" if piste[0][-2] == "_" else f"prendre {dico_type_piste[piste[1]]} {piste[0]} \n"
+            else:
+                last_piste = piste[0]
+                continue
+            last_piste = piste[0]
+        
+    label_pistes.config(text=txt)
 
 def starting_point(event):
     global start
@@ -79,7 +93,6 @@ def ending_point(event):
     end = find(event)
     canvas.itemconfig(end, fill="red")
     draw(get_coords(dijktra(start, end, niveau)[0]))
-    #### faire la liste des chemins
     chemin()
     canvas.bind('<Button-1>', starting_point)
     return end
@@ -127,8 +140,8 @@ bouton_expert = Button(root, text="Expert", command=expert)
 bouton_debutant.pack(fill="x", side="left", in_=frame_niveau)
 bouton_aguerri.pack(before=bouton_debutant, fill="x", side="left", in_=frame_niveau)
 bouton_expert.pack(before=bouton_aguerri, fill="x", side="left", in_=frame_niveau)
-label_pistes = Label(root, text = "chemin à suivre",wraplength=400, height=3, font=("calibri", 10))
-label_pistes.pack(fill="x")
+label_pistes = Label(root, text = "chemin à suivre", wraplength=400, font=("calibri", 10))
+label_pistes.pack()
 
 
 with open("nodes.txt", "r") as fic:
