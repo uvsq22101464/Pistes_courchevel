@@ -64,7 +64,7 @@ def dijktra_main(tableau, T,niveau):
 
 def chemin_plus_court(depart, arriver, tableau):
     chemin = []
-    noeud = arriver
+    noeud = arriver, tableau[arriver][1]
     if tableau[noeud][0] == '-':
         return chemin
     while noeud != None:
