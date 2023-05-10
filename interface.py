@@ -69,7 +69,14 @@ def ending_point(event):
     canvas.itemconfig(end, fill="red")
     draw(get_coords(dijktra(start, end, niveau)[0]))
     #### faire la liste des chemins
-    label_pistes.configure(text = dijktra(start, end, niveau)[1])
+    pistes = dijktra(start, end, niveau)[1]
+    pistes_str = " ".join(pistes)
+    pistes_str_liste = list(pistes_str)
+    for i in range(len(pistes_str_liste)):
+        if pistes_str_liste[i] == ' ':
+            pistes_str_liste[i] = "->"
+    afficher_pistes = "".join(pistes_str_liste)
+    label_pistes.configure(text = afficher_pistes)
     canvas.bind('<Button-1>', starting_point)
     return end
 
@@ -105,7 +112,7 @@ label_niveau = Label(root, text="Niveau :", height=3, font=("calibri", 23))
 label_niveau.pack(fill="x")
 label_niveau_select = Label(root, text="Débutant", height=3, font=("calibri", 23))
 label_niveau_select.pack(fill="x")
-label_pistes = Label(root, text = "chemin à suivre",wraplength=1000, height=3, font=("calibri", 23))
+label_pistes = Label(root, text = "chemin à suivre",wraplength=500, height=3, font=("calibri", 10))
 label_pistes.pack(fill="x")
 frame_niveau = Frame(root)
 frame_niveau.pack(fill="x")
