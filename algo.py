@@ -66,7 +66,7 @@ def chemin_plus_court(depart, arriver, tableau):
     chemin = []
     noeud = arriver, tableau[arriver][1]
     if tableau[noeud][0] == '-':
-        return chemin
+        return chemin, tableau[arriver][1]
     while noeud != None:
         chemin.insert(0, noeud)
         noeud = tableau[noeud][0]
