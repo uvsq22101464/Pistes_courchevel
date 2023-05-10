@@ -57,6 +57,8 @@ def draw(liste_coord):
 
 def chemin():
     pistes = dijktra(start, end, niveau)[1]
+    temps = dijktra(start, end, niveau)[2]
+    temps = (temps // 7338.5, temps % 7338.5 // 60)
     txt, last_piste = "", None
     if len(pistes) == 0:
         txt = "il n'y a pas de chemin possible"
@@ -77,7 +79,7 @@ def chemin():
                 last_piste = piste[0]
                 continue
             last_piste = piste[0]
-        
+    txt += f"cela vous prendra environ {int(temps[0])} heures et {int(temps[1])} minutes" if int(temps[0]) > 0 else f"cela vous prendra environ {int(temps[1])} minutes"
     label_pistes.config(text=txt)
 
 def starting_point(event):
