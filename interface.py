@@ -86,7 +86,7 @@ def debutant():
     niveau = "Débutant"
     label_niveau_select.config(text=niveau)
     reset_draw()
-    draw(get_coords(dijktra(start, end, niveau)))
+    draw(get_coords(dijktra(start, end, niveau)[0]))
     return niveau
 
 def aguerri():
