@@ -35,19 +35,25 @@ def dijktra_main(tableau, T,niveau):
                 if distance < mini:
                     mini = distance
                     sommet = noeud
-        for noeud, nom, type, distance in dico[sommet]:
-            if type != "telecabine" and type != "teleski" and type != "telesiege" and type != "telepherique":
-                if tableau[sommet][1]+distance * dico_niveau[niveau][type] < tableau[noeud][1]:
-                    tableau[noeud] = (sommet, tableau[sommet][1]+distance* dico_niveau[niveau][type])
-            else:
-                if tableau[sommet][1]+distance * dico_remonte[type] < tableau[noeud][1]:
-                    tableau[noeud] = (sommet, tableau[sommet][1]+distance* dico_remonte[type])
-        T.append(sommet)
+        if sommet is not None:
+            if  sommet != '-':
+                for noeud, nom, type, distance in dico[sommet]:
+                    if type != "telecabine" and type != "teleski" and type != "telesiege" and type != "telepherique":
+                        if tableau[sommet][1]+distance * dico_niveau[niveau][type] < tableau[noeud][1]:
+                            tableau[noeud] = (sommet, tableau[sommet][1]+distance* dico_niveau[niveau][type])
+                    else:
+                        if tableau[sommet][1]+distance * dico_remonte[type] < tableau[noeud][1]:
+                            tableau[noeud] = (sommet, tableau[sommet][1]+distance* dico_remonte[type])
+                T.append(sommet)
+        else:
+            break
     return tableau
 
 def chemin_plus_court(depart, arriver, tableau):
     chemin = []
     noeud = arriver
+    if tableau[noeud][0] == '-':
+        return chemin
     while noeud != None:
         chemin.insert(0, noeud)
         noeud = tableau[noeud][0]
