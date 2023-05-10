@@ -20,10 +20,23 @@ def dijktra(sommet, arriver,niveau):
     T.append(sommet)
     liste_chemin = chemin_plus_court(sommet, arriver, dijktra_main(tableau, T,niveau))
     nom_chemin = []
+    noeud_copy = None
+    type_copy = None
+    distance_copy = None
     for i in range(len(liste_chemin)-1):
         for noeud, nom, type, distance in dico[liste_chemin[i]]:
-            if noeud == liste_chemin[i+1]:
-                nom_chemin.append(nom)
+            print(noeud)
+            if noeud_copy == noeud:
+                print("1")
+                if distance*dico_niveau[niveau][type] < distance_copy*dico_niveau[niveau][type_copy]:
+                    print("2")
+                    nom_chemin.pop()
+                    nom_chemin.append((nom, type))
+            elif noeud == liste_chemin[i+1]:
+                nom_chemin.append((nom, type))
+            noeud_copy = noeud
+            type_copy = type
+            distance_copy = distance
     return liste_chemin, nom_chemin
 
 def dijktra_main(tableau, T,niveau):
