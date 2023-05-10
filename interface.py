@@ -58,7 +58,8 @@ def draw(liste_coord):
 def chemin():
     pistes = dijktra(start, end, niveau)[1]
     txt, last_piste = "", None
-    print(pistes)
+    if len(pistes) == 0:
+        txt = "il n'y a pas de chemin possible"
     for piste in pistes:
         if piste[0][-1] == "D" and piste[0][-3] == "_":
             txt += f"prendre le chemin de droite de {dico_type_piste[piste[1]]} {piste[0][:-3]} \n"
