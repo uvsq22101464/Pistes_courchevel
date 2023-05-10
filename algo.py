@@ -18,7 +18,7 @@ def dijktra(sommet, arriver,niveau):
     for noeud, nom, type, distance in dico[sommet]:
         tableau[noeud] = (sommet, distance)
     T.append(sommet)
-    liste_chemin, distance = chemin_plus_court(sommet, arriver, dijktra_main(tableau, T,niveau))
+    liste_chemin, distance_totale = chemin_plus_court(sommet, arriver, dijktra_main(tableau, T,niveau))
     nom_chemin = []
     noeud_copy = None
     type_copy = None
@@ -34,7 +34,7 @@ def dijktra(sommet, arriver,niveau):
             noeud_copy = noeud
             type_copy = type
             distance_copy = distance
-    return liste_chemin, nom_chemin, distance
+    return liste_chemin, nom_chemin, distance_totale
 
 def dijktra_main(tableau, T,niveau):
     while len(T) < len(tableau):
