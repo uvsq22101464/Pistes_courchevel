@@ -16,9 +16,12 @@ def dijktra(sommet, arriver,niveau):
         tableau[i] = ("-", 999999)
     tableau[sommet] = (None, 0)
     for noeud, nom, type, distance in dico[sommet]:
-        tableau[noeud] = (sommet, distance)
+        if type != "telecabine" and type != "teleski" and type != "telesiege" and type != "telepherique":
+            tableau[noeud] = (sommet, distance*dico_niveau[niveau][type])
+        else:
+            tableau[noeud] = (sommet, distance*dico_remonte[type])
     T.append(sommet)
-    liste_chemin, distance_totale = chemin_plus_court(sommet, arriver, dijktra_main(tableau, T,niveau))
+    liste_chemin, distance_totale = chemin_plus_court(sommet, arriver, dijktra_main(tableau, T, niveau))
     nom_chemin = []
     noeud_copy = None
     type_copy = None
