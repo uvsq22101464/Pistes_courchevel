@@ -82,7 +82,7 @@ def chemin():
                 last_piste = piste[0]
                 continue
             last_piste = piste[0]
-    txt += f"cela vous prendra environ {int(temps[0])} heures et {int(temps[1])} minutes" if int(temps[0]) > 0 else f"cela vous prendra environ {int(temps[1])} minutes"
+    txt += f"cela vous prendra environ {int(temps[0])} heure et {int(temps[1])} minutes" if int(temps[0]) > 0 else f"cela vous prendra environ {int(temps[1])} minutes"
     label_pistes.config(text=txt)
 
 def starting_point(event):
