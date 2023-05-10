@@ -25,11 +25,8 @@ def dijktra(sommet, arriver,niveau):
     distance_copy = None
     for i in range(len(liste_chemin)-1):
         for noeud, nom, type, distance in dico[liste_chemin[i]]:
-            print(noeud)
             if noeud_copy == noeud:
-                print("1")
                 if distance*dico_niveau[niveau][type] < distance_copy*dico_niveau[niveau][type_copy]:
-                    print("2")
                     nom_chemin.pop()
                     nom_chemin.append((nom, type))
             elif noeud == liste_chemin[i+1]:
