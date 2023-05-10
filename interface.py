@@ -69,6 +69,7 @@ def ending_point(event):
     canvas.itemconfig(end, fill="red")
     draw(get_coords(dijktra(start, end, niveau)[0]))
     #### faire la liste des chemins
+    label_pistes.configure(text = dijktra(start, end, niveau)[1])
     canvas.bind('<Button-1>', starting_point)
     return end
 
@@ -77,7 +78,7 @@ def debutant():
     niveau = "Débutant"
     label_niveau_select.config(text=niveau)
     reset_draw()
-    draw(get_coords(dijktra(start, end, niveau)[0]))
+    draw(get_coords(dijktra(start, end, niveau)))
     return niveau
 
 def aguerri():
@@ -104,6 +105,8 @@ label_niveau = Label(root, text="Niveau :", height=3, font=("calibri", 23))
 label_niveau.pack(fill="x")
 label_niveau_select = Label(root, text="Débutant", height=3, font=("calibri", 23))
 label_niveau_select.pack(fill="x")
+label_pistes = Label(root, text = "chemin à suivre",wraplength=1000, height=3, font=("calibri", 23))
+label_pistes.pack(fill="x")
 frame_niveau = Frame(root)
 frame_niveau.pack(fill="x")
 bouton_debutant = Button(root, text="Débutant", command=debutant)
