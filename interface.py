@@ -52,7 +52,7 @@ def get_coords(liste):
 
 def draw(liste_coord):
     while len(liste_coord) > 1:
-        canvas.create_line(liste_coord[0][0], liste_coord[0][1], liste_coord[1][0], liste_coord[1][1], fill="lawngreen", width=3)
+        canvas.create_line(liste_coord[0][0], liste_coord[0][1], liste_coord[1][0], liste_coord[1][1], fill="lawngreen", width=3, arrow='last')
         del liste_coord[0]
 
 def chemin():
