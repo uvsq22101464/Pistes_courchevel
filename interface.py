@@ -70,10 +70,11 @@ def ending_point(event):
     draw(get_coords(dijktra(start, end, niveau)[0]))
     #### faire la liste des chemins
     pistes = dijktra(start, end, niveau)[1]
-    pistes_str = " ".join(pistes)
+    print(pistes)
+    pistes_str = "@".join(pistes)
     pistes_str_liste = list(pistes_str)
     for i in range(len(pistes_str_liste)):
-        if pistes_str_liste[i] == ' ':
+        if pistes_str_liste[i] == '@':
             pistes_str_liste[i] = "->"
     afficher_pistes = "".join(pistes_str_liste)
     label_pistes.configure(text = afficher_pistes)
@@ -85,7 +86,7 @@ def debutant():
     niveau = "Débutant"
     label_niveau_select.config(text=niveau)
     reset_draw()
-    draw(get_coords(dijktra(start, end, niveau)[0]))
+    draw(get_coords(dijktra(start, end, niveau)))
     return niveau
 
 def aguerri():
